@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bienvenue sur le projet FRontier">
+    <title>Projet FRontier - Authentification EntraID</title>
+    
+    <!-- MSAL.js Library -->
+    <script src="https://alcdn.msauth.net/browser/2.38.1/js/msal-browser.min.js" 
+            integrity="sha384-4+qvTx1xCQQV6XYCp9vfQJLBmEjYXPUpVFPqWnXt2vqvWqfvYWBqZ7k1dpDKnqwY" 
+            crossorigin="anonymous"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #333;
+        }
+        
+        .container {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            text-align: center;
+            animation: fadeIn 1s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        h1 {
+            color: #667eea;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .description {
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 2rem;
+        }
+        
+        .cta-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            text-decoration: none;
+        
+        /* Styles pour l'authentification */
+        .auth-buttons {
+            margin-top: 2rem;
+        }
+        Authentification EntraID</p>
+        
+        <!-- Message d'erreur -->
+        <div id="errorMessage"></div>
+        
+        <!-- Contenu non authentifié -->
+        <div id="unauthenticatedContent">
+            <p class="description">
+                Explorez les nouvelles frontières du développement web avec le projet FRontier. 
+                Une initiative innovante pour repousser les limites de la technologie.
+            </p>
+            <p class="description">
+                <strong>Connectez-vous avec votre compte Microsoft pour accéder à l'application.</strong>
+            </p>
+        </div>
+        
+        <!-- Message de bienvenue -->
+        <div id="welcomeMessage"></div>
+        
+        <!-- Contenu authentifié -->
+        <div id="authenticatedContent">
+            <p class="description">
+                Vous êtes maintenant connecté ! Vous avez accès à toutes les fonctionnalités de FRontier.
+            </p>
+            <button class="auth-button profile-button" onclick="getUserProfile()">
+                📊 Voir mon profil
+            </button>
+            <div id="userProfile"></div>
+        </div>
+        
+        <!-- Boutons d'authentification -->
+        <div class="auth-buttons">
+            <button id="signInButton" class="auth-button" onclick="signIn()">
+                🔐 Se connecter avec Microsoft
+            </button>
+            <button id="signOutButton" class="auth-button sign-out-button" onclick="signOut()" style="display: none;">
+                🚪 Se déconnecter
+            </button>
+        </div>
+    </div>
+    
+    <!-- Configuration et Scripts d'authentification -->
+    <script src="config.js"></script>
+    <script src="auth.js"></script   cursor: pointer;
+            transition: transform 0.3s ease;
+            margin: 0.5rem;
+        }
+        
+        .auth-button:hover {
+            transform: scale(1.05);
+        }
+        
+        .sign-out-button {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        
+        #welcomeMessage {
+            display: none;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: #f0f4ff;
+            border-radius: 10px;
+        }
+        
+        #welcomeMessage h2 {
+            color: #667eea;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .user-email {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        #authenticatedContent {
+            display: none;
+            margin-top: 2rem;
+        }
+        
+        #userProfile {
+            background: #f9f9f9;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-top: 1rem;
+            text-align: left;
+        }
+        
+        #userProfile h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+        
+        #userProfile p {
+            margin: 0.5rem 0;
+            color: #555;
+        }
+        
+        #errorMessage {
+            display: none;
+            background: #ffe0e0;
+            color: #c00;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-top: 1rem;
+        }
+        
+        .profile-button {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            margin-top: 1rem;
+        }
+            display: inline-block;
+        }
+        
+        .cta-button:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Projet FRontier</h1>
+        <p class="subtitle">Bienvenue dans notre projet</p>
+        <p class="description">
+            Explorez les nouvelles frontières du développement web avec le projet FRontier. 
+            Une initiative innovante pour repousser les limites de la technologie.
+        </p>
+        <button class="cta-button" onclick="alert('Bienvenue dans FRontier!')">
+            Commencer l'aventure
+        </button>
+    </div>
+</body>
+</html>
