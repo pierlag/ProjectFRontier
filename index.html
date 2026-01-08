@@ -67,6 +67,7 @@
             margin-bottom: 2rem;
         }
         
+        /* Boutons */
         .cta-button {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -77,57 +78,28 @@
             cursor: pointer;
             transition: transform 0.3s ease;
             text-decoration: none;
+            display: inline-block;
+        }
         
-        /* Styles pour l'authentification */
+        .cta-button:hover {
+            transform: scale(1.05);
+        }
+
         .auth-buttons {
             margin-top: 2rem;
         }
-        Authentification EntraID</p>
-        
-        <!-- Message d'erreur -->
-        <div id="errorMessage"></div>
-        
-        <!-- Contenu non authentifié -->
-        <div id="unauthenticatedContent">
-            <p class="description">
-                Explorez les nouvelles frontières du développement web avec le projet FRontier. 
-                Une initiative innovante pour repousser les limites de la technologie.
-            </p>
-            <p class="description">
-                <strong>Connectez-vous avec votre compte Microsoft pour accéder à l'application.</strong>
-            </p>
-        </div>
-        
-        <!-- Message de bienvenue -->
-        <div id="welcomeMessage"></div>
-        
-        <!-- Contenu authentifié -->
-        <div id="authenticatedContent">
-            <p class="description">
-                Vous êtes maintenant connecté ! Vous avez accès à toutes les fonctionnalités de FRontier.
-            </p>
-            <button class="auth-button profile-button" onclick="getUserProfile()">
-                📊 Voir mon profil
-            </button>
-            <div id="userProfile"></div>
-        </div>
-        
-        <!-- Boutons d'authentification -->
-        <div class="auth-buttons">
-            <button id="signInButton" class="auth-button" onclick="signIn()">
-                🔐 Se connecter avec Microsoft
-            </button>
-            <button id="signOutButton" class="auth-button sign-out-button" onclick="signOut()" style="display: none;">
-                🚪 Se déconnecter
-            </button>
-        </div>
-    </div>
-    
-    <!-- Configuration et Scripts d'authentification -->
-    <script src="config.js"></script>
-    <script src="auth.js"></script   cursor: pointer;
+
+        .auth-button {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
             transition: transform 0.3s ease;
             margin: 0.5rem;
+            display: inline-block;
         }
         
         .auth-button:hover {
@@ -138,6 +110,12 @@
             background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
         }
         
+        .profile-button {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            margin-top: 1rem;
+        }
+
+        /* Zones d'affichage */
         #welcomeMessage {
             display: none;
             margin-top: 2rem;
@@ -188,30 +166,57 @@
             border-radius: 10px;
             margin-top: 1rem;
         }
-        
-        .profile-button {
-            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
-            margin-top: 1rem;
-        }
-            display: inline-block;
-        }
-        
-        .cta-button:hover {
-            transform: scale(1.05);
-        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>🚀 Projet FRontier</h1>
-        <p class="subtitle">Bienvenue dans notre projet</p>
-        <p class="description">
-            Explorez les nouvelles frontières du développement web avec le projet FRontier. 
-            Une initiative innovante pour repousser les limites de la technologie.
-        </p>
-        <button class="cta-button" onclick="alert('Bienvenue dans FRontier!')">
-            Commencer l'aventure
-        </button>
+        <p class="subtitle">Authentification EntraID</p>
+        
+        <!-- Message d'erreur -->
+        <div id="errorMessage"></div>
+        
+        <!-- Contenu non authentifié -->
+        <div id="unauthenticatedContent">
+            <p class="description">
+                <strong>Connectez-vous avec votre compte Microsoft pour accéder à l'application.</strong>
+            </p>
+        </div>
+        
+        <!-- Message de bienvenue -->
+        <div id="welcomeMessage"></div>
+        
+        <!-- Contenu authentifié (Protégé) -->
+        <div id="authenticatedContent">
+            <p class="description">
+                Explorez les nouvelles frontières du développement web avec le projet FRontier. 
+                Une initiative innovante pour repousser les limites de la technologie.
+            </p>
+            <button class="cta-button" onclick="alert('Bienvenue dans FRontier!')">
+                Commencer l'aventure
+            </button> 
+
+            <div style="margin-top: 1rem;">
+                <button class="auth-button profile-button" onclick="getUserProfile()">
+                    📊 Voir mon profil
+                </button>
+            </div>
+            <div id="userProfile"></div>
+        </div>
+        
+        <!-- Boutons d'authentification -->
+        <div class="auth-buttons">
+            <button id="signInButton" class="auth-button" onclick="signIn()">
+                🔐 Se connecter avec Microsoft
+            </button>
+            <button id="signOutButton" class="auth-button sign-out-button" onclick="signOut()" style="display: none;">
+                🚪 Se déconnecter
+            </button>
+        </div>
     </div>
+    
+    <!-- Configuration et Scripts d'authentification -->
+    <script src="config.js"></script>
+    <script src="auth.js"></script>
 </body>
 </html>
